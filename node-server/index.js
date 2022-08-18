@@ -2,6 +2,7 @@ const express = require('express')
 const middlewares = require('./middlewares')
 const morgan = require('morgan')
 const {sequelize} = require('./models')
+const winston = require('winston');
 
 require('dotenv').config()
 
@@ -20,7 +21,7 @@ app.use(middlewares.errorHandler)
 
 
 app.listen(PORT, async()=> {
-  await sequelize.sync()
-
   console.log(`Server is running on port ${PORT}`)
+  await sequelize.authenticate()
+  console.log('Connected to database')
 })
